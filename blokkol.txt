@@ -1,0 +1,7 @@
+Indulasi emelet: 17 
+Celemelet: 20 
+Feladatkod: 234 
+Befejezes ideje: 12:18:20 
+Sikeresseg: 23 
+----- 
+ 
