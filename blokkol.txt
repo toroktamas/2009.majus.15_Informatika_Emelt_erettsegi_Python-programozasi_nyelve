@@ -1,7 +1,12 @@
-Indulasi emelet: 17 
-Celemelet: 20 
-Feladatkod: 234 
-Befejezes ideje: 12:18:20 
-Sikeresseg: 23 
+Indulasi emelet: 7 
+Celemelet: 11 
+Feladatkod: 12 
+Befejezes ideje: 9:22:12 
+Sikeresseg: befejezett 
 ----- 
- 
+Indulasi emelet: 11 
+Celemelet: 14 
+Feladatkod: 14 
+Befejezes ideje: 10:8:57 
+Sikeresseg: asdsad 
+----- 

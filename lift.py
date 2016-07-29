@@ -50,26 +50,27 @@ for a in sorted(lift.keys()):
 
 print("4. feladat")
 """ Ki kell iratni a kepernyore a legmagasabb es legalacsonyabb sorszamu szintet amit a lift erintett."""
-erintett_szintek = []
+erintett_szintek = [hol_alt_a_lift]
 for v in lift.values():
     erintett_szintek.append(int(v["indulo szint"]))
     erintett_szintek.append(int(v["cel szint"]))
-sorba_rendezve = sorted(erintett_szintek)
 print("A legalacsonyabb sorszamu szint amit a lift erintett: {0}, es a legmagasabb szint amit a lift erintett: {1}. ".\
-      format(sorba_rendezve[0],sorba_rendezve[-1]))
+      format(min(erintett_szintek),max(erintett_szintek)))
 
 print("5. feladat")
 """ Meg kell hatarozni hogy hanyszor kellett felfele indulnia a liftnek utassal es utas nelkul."""
 utassal_felfele = 0
 utasnelkul_felfele = 0
-elozo_celszint = int()
+elozo_celszint = hol_alt_a_lift
 for v in lift.values():
-    if v["indulo szint"] < v["cel szint"]:
+    if int(v["indulo szint"]) > elozo_celszint:
+        utasnelkul_felfele+=1
+
+    if int(v["indulo szint"]) < int(v["cel szint"]):
         utassal_felfele += 1
         
-    elozo_celszint = v["cel szint"]
-    if v["indulo szint"] > elozo_celszint:
-        utasnelkul_felfele+=1
+    elozo_celszint = int(v["cel szint"])
+
 
 print("A liftnek {0}-enyiszer kellett felmenni-e utassal es {1}-ennyiszer utas nelkul.".\
       format(utassal_felfele,utasnelkul_felfele))
@@ -79,16 +80,13 @@ szerelocsapatok = []
 lista_egytol_csapat_max_szam_ig = []
 for v in lift.values():
     szerelocsapatok.append(int(v["csoport szam"]))
-    setszerelo = set(szerelocsapatok)
+setszerelo = set(szerelocsapatok)
 #print(setszerelo)
-
-for a in range(1, int(csapat_max_szam)+1):
-    lista_egytol_csapat_max_szam_ig.append(a)
 
 #print(lista_egytol_csapat_max_szam_ig)
 nincs_benne = []
 
-for a in lista_egytol_csapat_max_szam_ig:
+for a in range(1, int(csapat_max_szam)+1):
     if a not in setszerelo:
         nincs_benne.append(a)
         
@@ -113,14 +111,17 @@ else:
         n+=1
         if n > 1:
             elozo_szint = szotar[a]["erkezes"]    
-            if szotar[a]["indulas"] >= elozo_szint:
-                print("{0} ket szint kozott setaltak az emberek szabalytalanul {1}".format(elozo_szint, szotar[a]["indulas"]))
+            if szotar[a]["indulas"] < elozo_szint or szotar[a]["indulas"] < elozo_szint:
+                print("{0}-ik es a {1}-ik szint kozott setaltak az emberek szabalytalanul".format(elozo_szint, szotar[a]["indulas"]))
             else:
                 print("Nem bizonyithato szabalytalansag.")
 
 print("8. feladat")
-for k, g in szotar.items():
-    with open("blokkol.txt", "rt+", encoding="utf-8") as f:    
+
+with open("blokkol.txt", "rt+", encoding="utf-8") as f:
+    for k in sorted(szotar.keys()):
+        g = szotar[k]
+        print("A jelen munkaidopontja {0} amihez kerjuk adja meg az alabbi adatokat.".format(datetime.strftime(k, "%H:%M:%S")))
         Feladatkod = int(input("Kerem adja meg a feladatkodot. "))
         Sikeresseg = str(input("Kerem adja meg hogy 'befejezett' vagy 'befejezetlen' az adott munka. "))
         f.write("Indulasi emelet: {} \n".format(g["indulas"]))
